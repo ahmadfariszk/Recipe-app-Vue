@@ -4,7 +4,5 @@ const sameCounter = useState('counter')
 </script>
 
 <template>
-    <div><header>My Website</header><NuxtPage /></div>
-  
-  
+  <div>HEllo world</div>
 </template>
