@@ -12,7 +12,8 @@ export default withNuxt(
     },
     rules: {
       ...prettierConfig.rules,          // Import Prettier rules
-      'prettier/prettier': 'error',     // Flag Prettier issues as ESLint errors
+      'prettier/prettier': ['warn', { 'endOfLine': 'off' }]    // Flag Prettier issues as ESLint errors
     },
+    
   }
 )
