@@ -10,17 +10,29 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@primevue/nuxt-module",
   ],
-  primevue: {options: {
-    theme: 'none'
-}
+  primevue: {
+    options: {
+      theme: "none",
+    },
   },
+  css: ["@/assets/css/tailwind.css", "@/assets/css/base.css"],
   tailwindcss: {
-    cssPath: ['~/assets/css/tailwind.css', { injectPosition: "first" }],
-    configPath: 'tailwind.config',
+    cssPath: ["~/assets/css/tailwind.css", { injectPosition: "first" }],
+    configPath: "tailwind.config",
     exposeConfig: {
-      level: 2
+      level: 2,
     },
     config: {},
     viewer: true,
+  },
+  plugins: [
+    { src: '~/plugins/disableHoverOnMobile.ts', mode: 'client' }
+  ],
+  postcss: {
+    plugins: {
+      "postcss-import": {},
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   }
 });

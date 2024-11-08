@@ -1,10 +1,10 @@
 <script setup>
-const counter = useState('counter', () => Math.round(Math.random() * 1000))
-const sameCounter = useState('counter')
+import Button from "primevue/button";
 </script>
 
 <template>
-    <div><header>My Website</header><NuxtPage /></div>
-  
-  
+  <div>
+    <header>My Website</header>
+    <Button label="Submit" ></Button><NuxtPage />
+  </div>
 </template>
