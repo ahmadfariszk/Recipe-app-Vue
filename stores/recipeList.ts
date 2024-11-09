@@ -36,17 +36,17 @@ export const useRecipeListStore = defineStore("recipeList", {
   }),
   getters: {
     // Getter to access recipes directly
-    getRecipes(state) {
+    getRecipeList(state) {
       return state.recipeList;
     }
   },
   actions: {
-    setRecipes(newRecipes: Recipe[]) {
+    setRecipeList(newRecipes: Recipe[]) {
       this.recipeList = newRecipes;
       this.hasFetched = true;
       console.log('Recipe List:', this.recipeList);
     },
-    async fetchRecipes() {
+    async fetchRecipeList() {
       if (!this.hasFetched) {
         try {
           const response = await fetch(
@@ -56,7 +56,7 @@ export const useRecipeListStore = defineStore("recipeList", {
             throw new Error("Failed to fetch recipes");
           }
           const data: Recipe[] = await response.json();
-          this.setRecipes(data); // Use setRecipes to update the recipes array
+          this.setRecipeList(data); // Use setRecipes to update the recipes array
           console.log(data)
         } catch (error) {
           console.error("Error fetching recipes:", error);

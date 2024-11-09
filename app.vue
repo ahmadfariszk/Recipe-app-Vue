@@ -5,7 +5,7 @@ import { useRecipeListStore } from '@/stores/recipeList';
 const recipeStore = useRecipeListStore();
 
 onMounted(() => {
-  recipeStore.fetchRecipes(); // Trigger API fetch once when the app mounts
+  recipeStore.fetchRecipeList(); // Trigger API fetch once when the app mounts
 });
 </script>
 
