@@ -1,3 +1,4 @@
 <template>
+  <SearchHeader/>
   <RecipeList/>
 </template>
