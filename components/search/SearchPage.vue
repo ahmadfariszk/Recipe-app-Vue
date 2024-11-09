@@ -14,9 +14,8 @@
     </div>
   </template>
   <script setup>
-  import { computed, onMounted } from 'vue';
+  import { computed } from 'vue';
   import { useRecipeListStore } from '@/stores/recipeList';
-  import RecipeCardVertical from '@/components/RecipeCardVertical.vue';
   
   const recipeStore = useRecipeListStore();
   console.log(recipeStore.getRecipeList)

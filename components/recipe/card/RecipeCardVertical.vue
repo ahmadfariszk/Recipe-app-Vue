@@ -12,15 +12,13 @@
     </template>
     <template #footer>
       <div class="flex gap-4 mt-1">
-        <Button label="Cancel" severity="secondary" outlined class="w-full" />
-        <Button label="Save" class="w-full" />
+        <Button label="Cancel" severity="secondary" outlined class="w-full"></Button>
+        <Button label="Save" class="w-full" ></Button>
       </div>
     </template>
   </Card>
 </template>
 <script setup>
-import { defineProps } from 'vue';
-
 // Define the `recipe` prop, with the appropriate type
 defineProps({
   recipe: {
