@@ -1,6 +1,6 @@
 <template>
     <div>
-      <ul>
+      <ul class="list-disc list-outside pl-6">
         <li v-for="(ingredient, index) in recipeIngredient" :key="index">{{ ingredient }}</li>
       </ul>
     </div>

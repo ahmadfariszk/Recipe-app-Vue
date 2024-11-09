@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{ title }}</div>
+    <div class="text-2xl font-semibold mb-2">{{ title }}</div>
     <div>
       <slot name="body"></slot>
     </div>
