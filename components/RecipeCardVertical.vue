@@ -1,12 +1,12 @@
 <template>
-  <Card style="width: 25rem; overflow: hidden">
-    <template #header>
-      <img alt="food header" :src="recipe.image" />
+  <Card class=" w-full overflow-hidden">
+    <template #header class=" w-10">
+      <img classname=" object-fit" alt="food header" :src="recipe.image" />
     </template>
     <template #title>{{recipe.name}}</template>
     <template #subtitle>{{recipe.totalTime}}</template>
     <template #content>
-      <p class="m-0">
+      <p class="m-0 h-10 overflow-clip">
         {{recipe.description}}
       </p>
     </template>
