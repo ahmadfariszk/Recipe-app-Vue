@@ -21,10 +21,12 @@ interface Instruction {
   text: string;
 }
 
-const props = defineProps({
-  recipeInstructions: {
-    type: Array as PropType<Instruction[]>,
-    required: true,
-  },
-});
+export default {
+  props: {
+    recipeInstructions: {
+      type: Array as PropType<Instruction[]>,
+      required: true
+    }
+  }
+};
 </script>
