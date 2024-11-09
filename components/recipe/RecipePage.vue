@@ -13,7 +13,7 @@
         >
         <template #content>
           <div class="h-full">
-            <BaseReadMore :text="recipe.description"/>
+            <BaseReadMore :text="recipe.description" class=" text-sm"/>
           </div>
 
         </template>
