@@ -4,9 +4,9 @@
       <FloatLabel variant="over">
         <IconField >
             <InputIcon class="pi pi-search" ><Search :size="20" /></InputIcon>
-            <InputText id="over_label" class="h-12 min-w-72 " autocomplete="off" />
+            <InputText id="over_label" class="h-10 min-w-72 " autocomplete="off" />
         </IconField>
-        <label for="over_label" >Over Label</label>
+        <label for="over_label" >Search recipes, keywords...</label>
       </FloatLabel>
   </div>
 </template>
