@@ -13,9 +13,19 @@
         >
         <template #content>
           <div class="h-full">
-            <BaseReadMore :text="recipe.description" class=" text-sm"/>
+            <BaseReadMore :text="recipe.description" class="text-sm" />
           </div>
-
+          <Divider />
+          <RecipeInfo title="Ingredient">
+            <template #body>
+              <RecipeIngredient :recipe-ingredient="recipe.recipeIngredient" />
+            </template>
+          </RecipeInfo>
+          <RecipeInfo title="Ingredient">
+            <template #body>
+              <RecipeIntructions :recipe-instructions="recipe.recipeInstructions"/>
+            </template>
+          </RecipeInfo>
         </template>
       </Card>
     </div>
