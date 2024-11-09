@@ -1,9 +1,9 @@
 <template>
-    <!-- Check if recipeList is defined and has items before rendering -->
+    <!-- Check if recipeArray is defined and has items before rendering -->
     <div class=" p-4">
-      <div v-if="recipeList && recipeList.length">
+      <div v-if="recipeArray && recipeArray.length">
         <RecipeCardHorizontal
-          v-for="recipe in recipeList"
+          v-for="recipe in recipeArray"
           :key="recipe.name"
           :recipe="recipe"
         />
@@ -15,10 +15,10 @@
   </template>
   <script setup>
   import { computed } from 'vue';
-  import { useRecipeListStore } from '@/stores/recipeList';
+  import { useRecipeArrayStore } from '@/stores/recipeArrayStore';
   
-  const recipeStore = useRecipeListStore();
-  console.log(recipeStore.getRecipeList)
+  const recipeStore = useRecipeArrayStore();
+  console.log(recipeStore.getRecipeArray)
   
-  const recipeList = computed(() => recipeStore.getRecipeList);
+  const recipeArray = computed(() => recipeStore.getRecipeArray);
   </script>

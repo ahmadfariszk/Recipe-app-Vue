@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useRecipeListStore } from '@/stores/recipeList';
+import { useRecipeArrayStore } from '@/stores/recipeArrayStore';
 
-const recipeStore = useRecipeListStore();
+const recipeStore = useRecipeArrayStore();
 
 onMounted(() => {
-  recipeStore.fetchRecipeList(); // Trigger API fetch once when the app mounts
+  recipeStore.fetchRecipeArray(); // Trigger API fetch once when the app mounts
 });
 </script>
 

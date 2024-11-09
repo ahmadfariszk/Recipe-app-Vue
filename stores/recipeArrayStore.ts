@@ -30,27 +30,27 @@ export type Recipe = {
   aggregateRating: null | number;
 };
 
-export const useRecipeListStore = defineStore("recipeList", {
-  state: (): { recipeList: Recipe[]; hasFetched: boolean } => ({
-    recipeList: [],
+export const useRecipeArrayStore = defineStore("recipeArray", {
+  state: (): { recipeArray: Recipe[]; hasFetched: boolean } => ({
+    recipeArray: [],
     hasFetched: false,
   }),
   getters: {
     // Getter to access recipes directly
-    getRecipeList(state) {
-      return state.recipeList;
+    getRecipeArray(state) {
+      return state.recipeArray;
     },
     // Retrieve a single recipe by ID
     getRecipeById: (state) => (id:number) => {
-      return state.recipeList.find((recipe) => recipe.id === id);
+      return state.recipeArray.find((recipe) => recipe.id === id);
     },
   },
   actions: {
-    setRecipeList(newRecipes: Recipe[]) {
-      this.recipeList = newRecipes;
+    setRecipeArray(newRecipes: Recipe[]) {
+      this.recipeArray = newRecipes;
       this.hasFetched = true;
     },
-    async fetchRecipeList() {
+    async fetchRecipeArray() {
       if (!this.hasFetched) {
         try {
           const response = await fetch(
@@ -67,7 +67,7 @@ export const useRecipeListStore = defineStore("recipeList", {
             id: index + 1, // Start IDs at 1, or use `index` if you want to start at 0
           }));
 
-          this.setRecipeList(recipesWithIds); // Update the recipes array with IDs
+          this.setRecipeArray(recipesWithIds); // Update the recipes array with IDs
         } catch (error) {
           console.error("Error fetching recipes:", error);
         }

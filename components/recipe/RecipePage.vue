@@ -48,9 +48,9 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRecipeListStore } from "@/stores/recipeList";
+import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
 
-const recipeStore = useRecipeListStore();
+const recipeStore = useRecipeArrayStore();
 
 const recipe = computed(() => recipeStore.getRecipeById(1));
 </script>
