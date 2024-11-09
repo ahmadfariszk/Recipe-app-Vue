@@ -4,7 +4,7 @@
     <template #header>
       <img class="max-w-28 h-full object-cover rounded-xl overflow-hidden" alt="food header" :src="recipe.image" />
     </template>
-    <template #title>Simple Card</template>
+    <template #title>{{recipe.name}}</template>
     <template #content>
       <p class="m-0 h-16 text-sm overflow-hidden">
         {{ recipe.description }}
