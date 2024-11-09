@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 export type Recipe = {
   name: string;
+  id: number;
   url: string;
   image: string[];
   author: {
@@ -38,13 +39,16 @@ export const useRecipeListStore = defineStore("recipeList", {
     // Getter to access recipes directly
     getRecipeList(state) {
       return state.recipeList;
-    }
+    },
+    // Retrieve a single recipe by ID
+    getRecipeById: (state) => (id:number) => {
+      return state.recipeList.find((recipe) => recipe.id === id);
+    },
   },
   actions: {
     setRecipeList(newRecipes: Recipe[]) {
       this.recipeList = newRecipes;
       this.hasFetched = true;
-      console.log('Recipe List:', this.recipeList);
     },
     async fetchRecipeList() {
       if (!this.hasFetched) {
@@ -56,8 +60,14 @@ export const useRecipeListStore = defineStore("recipeList", {
             throw new Error("Failed to fetch recipes");
           }
           const data: Recipe[] = await response.json();
-          this.setRecipeList(data); // Use setRecipes to update the recipes array
-          console.log(data)
+
+          // Add unique IDs to each recipe, for selecting recipe individually (even after mutation)
+          const recipesWithIds = data.map((recipe, index) => ({
+            ...recipe,
+            id: index + 1, // Start IDs at 1, or use `index` if you want to start at 0
+          }));
+
+          this.setRecipeList(recipesWithIds); // Update the recipes array with IDs
         } catch (error) {
           console.error("Error fetching recipes:", error);
         }
