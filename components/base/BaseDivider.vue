@@ -1,3 +1,3 @@
 <template>
-    <Divider class="before:border-surface-400"/>
+    <Divider class="before:border-surface-300"/>
 </template>
