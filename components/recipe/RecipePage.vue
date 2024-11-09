@@ -8,7 +8,7 @@
         :src="recipe.image[0]"
       />
       <Card
-        class="text-lg -mt-16 relative shadow-none"
+        class="text-lg -mt-16 rounded-3xl relative shadow-none"
         :pt="{
           title: 'text-3xl font-bold',
         }"
