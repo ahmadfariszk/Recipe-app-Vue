@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
+import { formatDuration, intervalToDuration } from "date-fns";
 
 const recipeStore = useRecipeArrayStore();
 const props = defineProps<{ id: number }>();
 const recipe = computed(() => recipeStore.getRecipeById(props.id));
 
-const str = "Lodash is great";
 const nameInitials = computed(() => {
   const name = recipe.value?.author?.name || "";
   const words = name.split(" ").slice(0, 2); // Take only the first two words
@@ -16,15 +16,41 @@ const nameInitials = computed(() => {
 
 const truncatedName = computed(() => {
   const author = recipe.value?.author;
-  // Check if @type is "Person"
+  // Cut off person name at special characters
   if (author?.["@type"] === "Person") {
     const name = author?.name || "";
-    const index = name.search(/[^a-zA-Z\s]/); // Search for the first non-letter character
+    const index = name.search(/[^a-zA-Z\s]/);
     console.log("test");
-    return index === -1 ? name : name.slice(0, index).trim(); // Slice before the first non-letter character
+    return index === -1 ? name : name.slice(0, index).trim();
   }
-  // If @type is "Organisation" or anything else, return the full name
   return author?.name || "";
+});
+
+const formattedTime = computed(() => {
+  const durationString: string = recipe.value?.cookTime?? "PT0M"; // ISO 8601 format for 80 minutes
+  function parseDuration(durationISO: string): {
+    hours: number;
+    minutes: number;
+  } {
+    const minutesMatch = durationISO.match(/PT(\d+)M/);
+    const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+    const hours = Math.floor(minutes / 60);
+    return { hours, minutes: minutes % 60 };
+  }
+  const duration = parseDuration(durationString);
+  const formattedDuration: ComputedRef<string> = computed(() => {
+    const parts: string[] = [];
+    if (duration.hours > 0) {
+      parts.push(`${duration.hours} hour${duration.hours > 1 ? "s" : ""}`);
+    }
+    if (duration.minutes > 0) {
+      parts.push(
+        `${duration.minutes} minute${duration.minutes !== 1 ? "s" : ""}`,
+      );
+    }
+    return parts.join(" ") || "0 minutes";
+  });
+  return formattedDuration
 });
 </script>
 
@@ -43,12 +69,12 @@ const truncatedName = computed(() => {
           title: 'text-3xl font-bold',
         }"
       >
-        <template #title>{{ recipe?.name }}</template>
+        <template #title>{{ recipe?.name || "Unnamed Recipe" }}</template>
         <template #subtitle>
           <div class="flex gap-2">
-            <div>{{ recipe?.recipeCategory }}</div>
+            <div>{{ recipe?.recipeCategory || "No Category" }}</div>
             <div>•</div>
-            <div>{{ recipe?.cookTime }}</div>
+            <div>{{ formattedTime || "Unknown duration" }}</div>
           </div>
           <div class="flex items-center mt-3 -mb-1 text-sm font-semibold">
             <Avatar
@@ -57,7 +83,11 @@ const truncatedName = computed(() => {
               style="background-color: #dee9fc; color: #1a2551"
               shape="circle"
             />
-            <div>{{ truncatedName }} • {{ recipe?.datePublished }}</div>
+            <div>
+              {{ truncatedName }}
+              <span v-if="truncatedName && recipe?.datePublished"> • </span>
+              {{ recipe?.datePublished }}
+            </div>
           </div>
         </template>
         <template #content>
@@ -80,7 +110,7 @@ const truncatedName = computed(() => {
       </Card>
     </div>
     <div v-else class="flex">
-      <BaseSpinner/>
+      <BaseSpinner />
       <p>Loading recipes...</p>
     </div>
   </div>
