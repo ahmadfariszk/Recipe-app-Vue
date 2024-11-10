@@ -5,8 +5,8 @@ recipeStore.listenLocalStorageEventUpdate();
 </script>
 
 <template>
-  <div class="p-4">
-    <div class="title text-2xl font-semibold">Your Favourites</div>
+  <div class="p-4 sm:max-w-xl ">
+    <div class="title text-3xl font-semibold sm:text-4xl">Your Favourites</div>
     <div class="title text-sm flex items-center gap-1 text-muted-color">
       <i class="pi pi-info-circle" style="font-size: 0.75rem"></i>
       Remove from favourites by toggling 

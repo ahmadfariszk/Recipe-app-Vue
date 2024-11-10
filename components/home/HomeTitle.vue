@@ -2,7 +2,7 @@
   <Card
     class="bg-transparent shadow-none"
     :pt="{
-      title: 'flex justify-center text-white text-5xl',
+      title: 'flex justify-center text-white text-5xl sm:text-7xl',
       subtitle: 'flex justify-center text-white -mt-3',
     }"
   >
