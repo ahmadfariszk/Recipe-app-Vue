@@ -59,7 +59,7 @@ const formattedTime = computed(() => {
     <div v-if="recipe">
       <!-- Todo: apply  parallax-->
       <div class="sm:flex sm:items-center sm:justify-center sm:h-screen">
-        <div class="sm:flex sm:items-center sm:min-w-96 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 sm:h-screen">
+        <div class="sm:flex sm:items-center sm:min-w-96 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 sm:h-5/6 sm:rounded-3xl">
           <img
             class="w-full max-h-96 object-cover bg-fixed overflow-hidden sm:object-scale-down"
             alt="food header"
@@ -67,7 +67,7 @@ const formattedTime = computed(() => {
           />
         </div>
         <Card
-          class="text-lg -mt-16 sm:overflow-x-hidden rounded-3xl relative shadow-none sm:h-screen sm:py-24 sm:overflow-scroll sm:max-w-prose"
+          class="text-lg -mt-16 sm:overflow-x-hidden rounded-3xl relative shadow-none sm:h-screen sm:py-24 sm:overflow-scroll sm:max-w-prose sm:mt-0 sm:rounded-none"
           :pt="{
             title: 'text-3xl font-bold',
           }"
