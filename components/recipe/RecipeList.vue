@@ -4,13 +4,12 @@ import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
 
 const recipeStore = useRecipeArrayStore();
 const recipeArray = computed(() => recipeStore.getRecipeArray);
-
 </script>
 
 <template>
   <!-- Check if recipeArray is defined and has items before rendering -->
   <div class="w-full flex justify-center">
-    <div class="px-4 max-w-xl">
+    <div class="px-4 sm:max-w-xl">
       <div v-if="recipeArray && recipeArray.length">
         <RecipeCardHorizontal
           v-for="recipe in recipeArray"
@@ -19,11 +18,11 @@ const recipeArray = computed(() => recipeStore.getRecipeArray);
           @click="handleClickToRecipe(recipe.id)"
         />
       </div>
-      <div  v-else-if="recipeStore.getSelectedCategoryValue" class="text-center">
-        <p>There are no recipes found.</p>
+      <div v-else-if="recipeStore.getSelectedCategoryValue" class="text-center text-lg mt-12">
+        <p>There are no recipes that matches your filter(s)</p>
       </div>
-      <div v-else class="flex flex-col justify-center items-center mt-56 ">
-        <BaseSpinner/>
+      <div v-else class="flex flex-col justify-center items-center mt-56">
+        <BaseSpinner />
         <p>Loading recipes...</p>
       </div>
     </div>
