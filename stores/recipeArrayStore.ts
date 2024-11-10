@@ -8,7 +8,7 @@ export type Recipe = {
   name: string;
   id: number;
   url: string;
-  image: string[];
+  image: string[] | string;
   author: Author;
   datePublished: string;
   description: string;
