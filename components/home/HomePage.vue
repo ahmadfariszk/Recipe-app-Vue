@@ -13,8 +13,9 @@ const handleFocus = () => {
 
 <template>
   <div class="h-screen">
-    <div class="flex justify-center items-center h-1/3 bg-blue-500">
-      <BaseSearchBar click="handleFocus" />
+    <div class="flex flex-col justify-center items-center h-1/3 bg-gradient-to-r from-cyan-500 to-blue-500">
+      <HomeTitle class="-mb-1"/>
+      <BaseSearchBar @click="handleFocus" />
     </div>
     <FavouriteList/>
   </div>
