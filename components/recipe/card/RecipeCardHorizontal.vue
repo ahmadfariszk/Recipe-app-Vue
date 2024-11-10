@@ -1,10 +1,19 @@
 <template>
-  <Card class="w-full h-28 flex flex-row items-center overflow-hidden my-4 drop-shadow-xl" :pt="{
-        header:'h-full ', title:'text-base'}">
+  <Card
+    class="w-full h-28 flex flex-row items-center overflow-hidden my-4 drop-shadow-xl hover:bg-slate-400 ease-in-out"
+    :pt="{
+      header: 'h-full ',
+      title: 'text-base',
+    }"
+  >
     <template #header>
-      <img class="max-w-28 h-full object-cover rounded-xl overflow-hidden" alt="food header" :src="recipe.image" />
+      <img
+        class="max-w-28 h-full object-cover rounded-xl overflow-hidden"
+        alt="food header"
+        :src="recipe.image"
+      />
     </template>
-    <template #title>{{recipe.name}}</template>
+    <template #title>{{ recipe.name }}</template>
     <template #content>
       <p class="m-0 h-16 text-sm overflow-hidden">
         {{ recipe.description }}
