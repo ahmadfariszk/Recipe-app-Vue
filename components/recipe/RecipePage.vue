@@ -16,15 +16,13 @@ const nameInitials = computed(() => {
 
 const truncatedName = computed(() => {
   const author = recipe.value?.author;
-
   // Check if @type is "Person"
   if (author?.["@type"] === "Person") {
-    const name = author.name || "";
+    const name = author?.name || "";
     const index = name.search(/[^a-zA-Z\s]/); // Search for the first non-letter character
     console.log("test");
     return index === -1 ? name : name.slice(0, index).trim(); // Slice before the first non-letter character
   }
-
   // If @type is "Organisation" or anything else, return the full name
   return author?.name || "";
 });
@@ -37,7 +35,7 @@ const truncatedName = computed(() => {
       <img
         class="w-full object-cover bg-fixed overflow-hidden"
         alt="food header"
-        :src="recipe.image[0]"
+        :src="recipe?.image[0]"
       />
       <Card
         class="text-lg -mt-16 rounded-3xl relative shadow-none"
@@ -45,12 +43,12 @@ const truncatedName = computed(() => {
           title: 'text-3xl font-bold',
         }"
       >
-        <template #title>{{ recipe.name }}</template>
+        <template #title>{{ recipe?.name }}</template>
         <template #subtitle>
           <div class="flex gap-2">
-            <div>{{ recipe.recipeCategory }}</div>
+            <div>{{ recipe?.recipeCategory }}</div>
             <div>•</div>
-            <div>{{ recipe.cookTime }}</div>
+            <div>{{ recipe?.cookTime }}</div>
           </div>
           <div class="flex items-center mt-3 -mb-1 text-sm font-semibold">
             <Avatar
@@ -59,29 +57,30 @@ const truncatedName = computed(() => {
               style="background-color: #dee9fc; color: #1a2551"
               shape="circle"
             />
-            <div>{{ truncatedName }} • {{ recipe.datePublished }}</div>
+            <div>{{ truncatedName }} • {{ recipe?.datePublished }}</div>
           </div>
         </template>
         <template #content>
-          <BaseReadMore :text="recipe.description" class="text-base" />
+          <BaseReadMore :text="recipe?.description" class="text-base" />
           <BaseDivider />
           <RecipeInfo title="Ingredients">
             <template #body>
-              <RecipeIngredient :recipe-ingredient="recipe.recipeIngredient" />
+              <RecipeIngredient :recipe-ingredient="recipe?.recipeIngredient" />
             </template>
           </RecipeInfo>
           <BaseDivider />
           <RecipeInfo title="Steps">
             <template #body>
               <RecipeIntructions
-                :recipe-instructions="recipe.recipeInstructions"
+                :recipe-instructions="recipe?.recipeInstructions"
               />
             </template>
           </RecipeInfo>
         </template>
       </Card>
     </div>
-    <div v-else>
+    <div v-else class="flex">
+      <BaseSpinner/>
       <p>Loading recipes...</p>
     </div>
   </div>

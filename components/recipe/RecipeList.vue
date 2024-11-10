@@ -22,8 +22,7 @@ const recipeArray = computed(() => recipeStore.getRecipeArray);
       <p>There are no recipes found.</p>
     </div>
     <div v-else class="flex flex-col justify-center items-center mt-56 ">
-      <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
-    animationDuration=".5s" aria-label="Custom ProgressSpinner" />
+      <BaseSpinner/>
       <p>Loading recipes...</p>
     </div>
   </div>
