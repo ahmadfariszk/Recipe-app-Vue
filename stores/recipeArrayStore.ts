@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { startCase } from "lodash";
+import { startCase, some } from "lodash";
 export type Author = {
   "@type": "Person" | "Organisation"; // Union for @type
   name: string; // Common property for both Person and Organisation
@@ -41,6 +41,8 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     filteredRecipeArray: Recipe[];
     favRecipeIds: number[];
     favRecipeArray: Recipe[];
+    searchRecipeInputValue: string;
+    debounceTimeout: ReturnType<typeof setTimeout> | null; // For debouncing
   } => ({
     recipeArray: [],
     hasFetched: false,
@@ -48,11 +50,13 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     selectedCategoryValue: "",
     filteredRecipeArray: [],
     favRecipeIds: JSON.parse(localStorage.getItem("favRecipeIds") || "[]"),
-    favRecipeArray: []
+    favRecipeArray: [],
+    searchRecipeInputValue: "",
+    debounceTimeout: null as ReturnType<typeof setTimeout> | null, // For debouncing
   }),
   getters: {
     getRecipeArray(state) {
-      return state.selectedCategoryValue
+      return state.selectedCategoryValue || state.searchRecipeInputValue
         ? state.filteredRecipeArray
         : state.recipeArray;
     },
@@ -71,10 +75,13 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
       );
     },
     getFavRecipeIds(state) {
-      return state.favRecipeIds
+      return state.favRecipeIds;
     },
     getFavRecipeArray(state) {
       return state.favRecipeArray;
+    },
+    getSearchRecipeInputValue(state) {
+      return state.searchRecipeInputValue;
     },
   },
   actions: {
@@ -135,8 +142,10 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
       console.log("Selected category: ", value);
       this.selectedCategoryValue = value;
       this.filterRecipesByCategory(); // Call the filter function when category is selected
+      this.filterRecipesBySearch(); // Calling this just in case there's a search input value
       console.log("filtered: ", this.filteredRecipeArray);
     },
+
     filterRecipesByCategory() {
       if (!this.selectedCategoryValue) {
         this.filteredRecipeArray = this.recipeArray; // If no category is selected, show all recipes
@@ -146,7 +155,11 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
       const selectedCategory = startCase(
         this.selectedCategoryValue.trim().toLowerCase(),
       );
-      this.filteredRecipeArray = this.recipeArray.filter((recipe) => {
+      const recipeArrayToFilter = this.searchRecipeInputValue
+        ? this.filteredRecipeArray
+        : this.recipeArray;
+
+      this.filteredRecipeArray = recipeArrayToFilter.filter((recipe) => {
         if (Array.isArray(recipe.recipeCategory)) {
           return recipe.recipeCategory.some(
             (category) =>
@@ -163,9 +176,7 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     },
     toggleFavorite(recipeId: number) {
       if (this.favRecipeIds.includes(recipeId)) {
-        this.favRecipeIds = this.favRecipeIds.filter(
-          (id) => id !== recipeId,
-        );
+        this.favRecipeIds = this.favRecipeIds.filter((id) => id !== recipeId);
       } else {
         this.favRecipeIds.push(recipeId);
       }
@@ -174,10 +185,7 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     },
 
     saveFavorites() {
-      localStorage.setItem(
-        "favRecipeIds",
-        JSON.stringify(this.favRecipeIds),
-      );
+      localStorage.setItem("favRecipeIds", JSON.stringify(this.favRecipeIds));
     },
 
     loadFavorites() {
@@ -186,18 +194,54 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
       );
     },
     updateFavRecipeArray() {
-      this.favRecipeArray = this.recipeArray.filter(recipe => this.favRecipeIds.includes(recipe.id));
+      this.favRecipeArray = this.recipeArray.filter((recipe) =>
+        this.favRecipeIds.includes(recipe.id),
+      );
     },
 
     listenLocalStorageEventUpdate() {
-      if (typeof window !== 'undefined') {
-        window.addEventListener('storage', (event) => {
-          if (event.key === 'favRecipeIds') {  // Check if the key is 'likeCount'
-              this.loadFavorites() // Update the Pinia store with the latest array from localStorage
-              this.updateFavRecipeArray();
+      if (typeof window !== "undefined") {
+        window.addEventListener("storage", (event) => {
+          if (event.key === "favRecipeIds") {
+            // Check if the key is 'likeCount'
+            this.loadFavorites(); // Update the Pinia store with the latest array from localStorage
+            this.updateFavRecipeArray();
           }
         });
       }
-    }
+    },
+
+    handleOnSearchRecipeInput(value: string) {
+      this.searchRecipeInputValue = value;
+
+      if (this.debounceTimeout) {
+        clearTimeout(this.debounceTimeout);
+      }
+
+      this.debounceTimeout = setTimeout(() => {
+        this.filterRecipesByCategory(); // Calling this just in case there's a category selected
+        this.filterRecipesBySearch();
+      }, 1000);
+    },
+
+    filterRecipesBySearch() {
+      const keywordRegex = new RegExp(
+        `\\b${this.searchRecipeInputValue}\\b`,
+        "i",
+      ); // word boundary regex
+      const recipeArrayToFilter = this.selectedCategoryValue
+        ? this.filteredRecipeArray
+        : this.recipeArray;
+
+      const result = recipeArrayToFilter.filter((obj) =>
+        some(
+          obj,
+          (value) => typeof value === "string" && keywordRegex.test(value),
+        ),
+      );
+      this.filteredRecipeArray = this.searchRecipeInputValue
+        ? result
+        : this.getRecipeArray;
+    },
   },
 });

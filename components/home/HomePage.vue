@@ -14,7 +14,7 @@ const handleFocus = () => {
 <template>
   <div class="h-screen">
     <div class="flex justify-center items-center h-1/3 bg-blue-500">
-      <SearchBar @click="handleFocus" />
+      <BaseSearchBar click="handleFocus" />
     </div>
     <FavouriteList/>
   </div>
