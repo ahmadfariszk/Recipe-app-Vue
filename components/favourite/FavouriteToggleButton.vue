@@ -1,8 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRecipeArrayStore } from '~/stores/recipeArrayStore';
+import { computed } from 'vue';
+
+const props = defineProps<{ recipe: { id: number; [key: string]: any } }>();
+const recipeStore = useRecipeArrayStore();
+
+// Define a computed property for `v-model`
+const isFavorite = computed({
+  get: () => recipeStore.favRecipeArray.includes(props.recipe.id),
+  set: (value) => {
+    recipeStore.toggleFavorite(props.recipe.id);
+  }
+});
+</script>
 
 <template>
   <ToggleButton
-    v-model="checked"
+    v-model="isFavorite"
     onLabel=" "
     onIcon="pi pi-heart-fill"
     offLabel=" "
