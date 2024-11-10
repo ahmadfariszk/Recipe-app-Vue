@@ -52,6 +52,20 @@ const formattedTime = computed(() => {
   });
   return formattedDuration;
 });
+const fallbackImage =
+  "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
+
+function checkImage(event) {
+  //If image link return no image
+  const img = event.target;
+  if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+    img.src = fallbackImage;
+  }
+}
+function onImageError(event) {
+  //If image link broken
+  event.target.src = fallbackImage;
+}
 </script>
 
 <template>
@@ -59,11 +73,20 @@ const formattedTime = computed(() => {
     <div v-if="recipe">
       <!-- Todo: apply  parallax-->
       <div class="sm:flex sm:items-center sm:justify-center sm:h-screen">
-        <div class="sm:flex sm:items-center sm:min-w-96 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 sm:h-5/6 sm:rounded-3xl">
+        <div
+          class="sm:flex sm:items-center sm:min-w-96 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 sm:h-5/6 sm:rounded-3xl"
+        >
           <img
             class="w-full max-h-96 object-cover bg-fixed overflow-hidden sm:object-scale-down"
             alt="food header"
-            :src="recipe?.image[0]"
+            :src="
+          Array.isArray(recipe?.image)
+            ? recipe?.image?.[0]
+            : recipe?.image ||
+              'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+        "
+        @load="checkImage"
+        @error="onImageError"
           />
         </div>
         <Card
@@ -75,12 +98,19 @@ const formattedTime = computed(() => {
           <template #title>{{ recipe?.name || "Unnamed Recipe" }}</template>
           <template #subtitle>
             <div class="flex gap-2">
-              <div>{{ Array.isArray(recipe?.recipeCategory) ? recipe?.recipeCategory.join(', ') : recipe?.recipeCategory || "No Category" }}</div>
+              <div>
+                {{
+                  Array.isArray(recipe?.recipeCategory)
+                    ? recipe?.recipeCategory.join(", ")
+                    : recipe?.recipeCategory || "No Category"
+                }}
+              </div>
               <div>•</div>
               <div>{{ formattedTime || "Unknown duration" }}</div>
             </div>
             <div class="flex items-center mt-3 -mb-1 text-sm font-semibold">
               <Avatar
+                v-if="nameInitials"
                 :label="nameInitials"
                 class="mr-2"
                 style="background-color: #dee9fc; color: #1a2551"
@@ -107,8 +137,13 @@ const formattedTime = computed(() => {
             <RecipeInfo title="Steps">
               <template #body>
                 <RecipeIntructions
+                  v-if="Array.isArray(recipe?.recipeInstructions)"
                   :recipe-instructions="recipe?.recipeInstructions"
                 />
+
+                <p v-else>
+                  {{ recipe?.recipeInstructions || "No Instructions" }}
+                </p>
               </template>
             </RecipeInfo>
           </template>

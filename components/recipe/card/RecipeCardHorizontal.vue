@@ -36,8 +36,8 @@ function onImageError(event) {
         class="min-w-28 max-w-28 h-full object-cover rounded-xl overflow-hidden"
         alt="food header"
         :src="
-          Array.isArray(recipe.image)
-            ? recipe.image?.[0]
+          Array.isArray(recipe?.image)
+            ? recipe?.image?.[0]
             : recipe?.image ||
               'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
         "
