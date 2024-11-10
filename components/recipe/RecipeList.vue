@@ -7,6 +7,7 @@
             v-for="recipe in recipeArray"
             :key="recipe.name"
             :recipe="recipe"
+            @click="handleClickToRecipe(recipe.id)"
           />
         
       </div>

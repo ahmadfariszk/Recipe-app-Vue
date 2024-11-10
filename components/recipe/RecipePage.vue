@@ -51,6 +51,6 @@ import { computed } from "vue";
 import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
 
 const recipeStore = useRecipeArrayStore();
-
-const recipe = computed(() => recipeStore.getRecipeById(1));
+const props = defineProps<{ id: number }>();
+const recipe = computed(() => recipeStore.getRecipeById(props.id));
 </script>
