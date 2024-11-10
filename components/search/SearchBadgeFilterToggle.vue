@@ -1,27 +1,3 @@
-<template>
-  <div class="overflow-x-auto whitespace-nowrap">
-    <div class="flex items-start mx-2">
-      <!-- Flex container for left alignment -->
-      <SelectButton
-        v-bind:modelValue="value"
-        :options="options"
-        :pt="{
-          pcToggleButton: {
-            // root: 'bg-blue-500 data-[p-checked=true]:bg-green-500 data-[p-checked=true]:before:bg-orange-500',
-            // content: 'bg-red-500',
-            onLable: 'a',
-            root:'!rounded-full m-2 mx-1 border-surface-300 bg-transparent data-[p-checked=true]:bg-surface-200 data-[p-checked=true]:before:bg-surface-200 data-[p-checked=true]:before:shadow-none',
-            label: 'text-nowrap',
-          },
-        }"
-        @click="handleClick"
-      />
-    </div>
-  </div>
-  <!-- <div class="flex justify-center">
-    <BaseToggleButtonBadge /><BaseToggleButtonBadge /><BaseToggleButtonBadge /><BaseToggleButtonBadge />
-  </div> -->
-</template>
 <script setup lang="ts">
 // const value = "Main Dish"; // Default value
 // const options = ["Drinks", "Main Dish", "Pasta"]; // Options
@@ -54,3 +30,28 @@ const handleClick = (event: PointerEvent) => {
   }
 };
 </script>
+
+<template>
+  <div class="overflow-x-auto whitespace-nowrap">
+    <div class="flex items-start mx-2">
+      <!-- Flex container for left alignment -->
+      <SelectButton
+        v-bind:modelValue="value"
+        :options="options"
+        :pt="{
+          pcToggleButton: {
+            // root: 'bg-blue-500 data-[p-checked=true]:bg-green-500 data-[p-checked=true]:before:bg-orange-500',
+            // content: 'bg-red-500',
+            onLable: 'a',
+            root: '!rounded-full m-2 mx-1 border-surface-300 bg-transparent data-[p-checked=true]:bg-surface-200 data-[p-checked=true]:before:bg-surface-200 data-[p-checked=true]:before:shadow-none',
+            label: 'text-nowrap',
+          },
+        }"
+        @click="handleClick"
+      />
+    </div>
+  </div>
+  <!-- <div class="flex justify-center">
+    <BaseToggleButtonBadge /><BaseToggleButtonBadge /><BaseToggleButtonBadge /><BaseToggleButtonBadge />
+  </div> -->
+</template>

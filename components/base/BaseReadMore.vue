@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { ref, onMounted, nextTick } from "vue";
+const props = defineProps({
+  text: String,
+});
+
+const { text } = props;
+
+const isExpanded = ref(false);
+const isTruncated = ref(false); // Tracks whether the text is truncated
+const content = ref<HTMLElement | null>(null);
+
+// Handle the toggle and ensure animation works as expected
+const toggleExpansion = async () => {
+  isExpanded.value = !isExpanded.value;
+  await nextTick(); // Ensure DOM is updated before applying animation
+};
+
+// Check if the text is truncated after the component has mounted
+const checkIfTruncated = () => {
+  if (content.value) {
+    isTruncated.value = content.value.scrollHeight > content.value.clientHeight;
+  }
+};
+
+// Run the check on mount
+onMounted(() => {
+  checkIfTruncated();
+});
+</script>
+
 <template>
   <div class="relative">
     <!-- Paragraph with dynamic classes for truncation and animation -->
@@ -27,34 +58,3 @@
     </button>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted, nextTick } from "vue";
-const props = defineProps({
-  text: String
-})
-
-const { text } = props;
-
-const isExpanded = ref(false);
-const isTruncated = ref(false); // Tracks whether the text is truncated
-const content = ref<HTMLElement | null>(null);
-
-// Handle the toggle and ensure animation works as expected
-const toggleExpansion = async () => {
-  isExpanded.value = !isExpanded.value;
-  await nextTick(); // Ensure DOM is updated before applying animation
-};
-
-// Check if the text is truncated after the component has mounted
-const checkIfTruncated = () => {
-  if (content.value) {
-    isTruncated.value = content.value.scrollHeight > content.value.clientHeight;
-  }
-};
-
-// Run the check on mount
-onMounted(() => {
-  checkIfTruncated();
-});
-</script>

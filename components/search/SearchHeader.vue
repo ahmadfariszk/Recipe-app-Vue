@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import { Search } from "lucide-vue-next";
+const selectedCity = ref();
+const cities = ref([
+  { name: "New York", code: "NY" },
+  { name: "Rome", code: "RM" },
+  { name: "London", code: "LDN" },
+  { name: "Istanbul", code: "IST" },
+  { name: "Paris", code: "PRS" },
+]);
+
+defineProps<{
+  badgeFilterValue?: string;
+  badgeFilterOptions?: string[];
+  badgeFilterOnClick?: (value: string) => void;
+}>();
+</script>
+
 <template>
   <div
     class="flex justify-center items-center min-h-12 pt-8 -mb-12 relative bg-blue-500"
@@ -36,21 +54,3 @@
     ></Select>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Search } from "lucide-vue-next";
-const selectedCity = ref();
-const cities = ref([
-  { name: "New York", code: "NY" },
-  { name: "Rome", code: "RM" },
-  { name: "London", code: "LDN" },
-  { name: "Istanbul", code: "IST" },
-  { name: "Paris", code: "PRS" },
-]);
-
-defineProps<{
-    badgeFilterValue?: string;
-    badgeFilterOptions?: string[];
-    badgeFilterOnClick?: (value: string) => void;
-  }>();
-</script>

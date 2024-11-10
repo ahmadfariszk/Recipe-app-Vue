@@ -6,13 +6,11 @@ defineProps({
     required: true,
   },
 });
-
 </script>
 
 <template>
   <Card
-    class="w-full h-28 flex flex-row items-center overflow-hidden my-4 drop-shadow-xl 
-    hover:bg-slate-100 hover:duration-100 hover:ease-in-out active:bg-blue-600 active:duration-75"
+    class="w-full h-28 flex flex-row items-center overflow-hidden my-4 drop-shadow-xl hover:bg-slate-100 hover:duration-100 hover:ease-in-out active:bg-blue-600 active:duration-75"
     :pt="{
       header: 'h-full ',
       title: 'text-base',

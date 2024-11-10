@@ -1,3 +1,18 @@
+<script lang="ts">
+interface Instruction {
+  text: string;
+}
+
+export default {
+  props: {
+    recipeInstructions: {
+      type: Array as PropType<Instruction[]>,
+      required: true,
+    },
+  },
+};
+</script>
+
 <template>
   <div
     class="flex mb-4"
@@ -16,17 +31,3 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-interface Instruction {
-  text: string;
-}
-
-export default {
-  props: {
-    recipeInstructions: {
-      type: Array as PropType<Instruction[]>,
-      required: true
-    }
-  }
-};
-</script>
