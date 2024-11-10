@@ -1,14 +1,15 @@
 import { defineStore } from "pinia";
 import { startCase } from 'lodash';
-
+export type Author = {
+  "@type": "Person" | "Organisation"; // Union for @type
+  name: string; // Common property for both Person and Organisation
+};
 export type Recipe = {
   name: string;
   id: number;
   url: string;
   image: string[];
-  author: {
-    name: string;
-  };
+  author: Author;
   datePublished: string;
   description: string;
   prepTime: string;
