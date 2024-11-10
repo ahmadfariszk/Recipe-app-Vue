@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const recipeStore = useRecipeArrayStore();
 const favRecipeArray = computed(() => recipeStore.getFavRecipeArray);
+recipeStore.listenLocalStorageEventUpdate();
+
 </script>
 
 <template>

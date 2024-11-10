@@ -71,11 +71,9 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
       );
     },
     getFavRecipeIds(state) {
-      console.log(state.favRecipeIds)
       return state.favRecipeIds
     },
     getFavRecipeArray(state) {
-      console.log('ay', state.favRecipeArray)
       return state.favRecipeArray;
     },
   },
@@ -102,7 +100,6 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
 
           this.setRecipeArray(recipesWithIds);
           this.updateFavRecipeArray();
-          console.log("category options", this.getCategoryOptions);
         } catch (error) {
           console.error("Error fetching recipes:", error);
         }
@@ -184,14 +181,23 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     },
 
     loadFavorites() {
-      console.log('loaded!')
       this.favRecipeIds = JSON.parse(
         localStorage.getItem("favRecipeIds") || "[]",
       );
     },
     updateFavRecipeArray() {
-      console.log('what are the fav recipe ids?', this.favRecipeIds)
       this.favRecipeArray = this.recipeArray.filter(recipe => this.favRecipeIds.includes(recipe.id));
     },
+
+    listenLocalStorageEventUpdate() {
+      if (typeof window !== 'undefined') {
+        window.addEventListener('storage', (event) => {
+          if (event.key === 'favRecipeIds') {  // Check if the key is 'likeCount'
+              this.loadFavorites() // Update the Pinia store with the latest array from localStorage
+              this.updateFavRecipeArray();
+          }
+        });
+      }
+    }
   },
 });

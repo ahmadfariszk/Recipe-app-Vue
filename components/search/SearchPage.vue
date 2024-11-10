@@ -15,5 +15,6 @@ const recipeStore = useRecipeArrayStore();
 
 const categoryList = computed(() => recipeStore.getCategoryOptions);
 const selectedCategoryValue = computed(() => recipeStore.getSelectedCategoryValue);
+recipeStore.listenLocalStorageEventUpdate();
 
 </script>
