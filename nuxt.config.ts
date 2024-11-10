@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   plugins: [
     { src: '~/plugins/disableHoverOnMobile.ts', mode: 'client' },
     '~/plugins/localFavourites.ts',
+    '~/plugins/removeDarkMode.ts'
   ],
   postcss: {
     plugins: {
