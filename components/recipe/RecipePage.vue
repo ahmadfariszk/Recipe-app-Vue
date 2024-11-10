@@ -27,7 +27,7 @@ const truncatedName = computed(() => {
 });
 
 const formattedTime = computed(() => {
-  const durationString: string = recipe.value?.cookTime?? "PT0M"; // ISO 8601 format for 80 minutes
+  const durationString: string = recipe.value?.cookTime ?? "PT0M"; // ISO 8601 format for 80 minutes
   function parseDuration(durationISO: string): {
     hours: number;
     minutes: number;
@@ -50,7 +50,7 @@ const formattedTime = computed(() => {
     }
     return parts.join(" ") || "0 minutes";
   });
-  return formattedDuration
+  return formattedDuration;
 });
 </script>
 
@@ -58,56 +58,62 @@ const formattedTime = computed(() => {
   <div>
     <div v-if="recipe">
       <!-- Todo: apply  parallax-->
-      <img
-        class="w-full object-cover bg-fixed overflow-hidden"
-        alt="food header"
-        :src="recipe?.image[0]"
-      />
-      <Card
-        class="text-lg -mt-16 rounded-3xl relative shadow-none"
-        :pt="{
-          title: 'text-3xl font-bold',
-        }"
-      >
-        <template #title>{{ recipe?.name || "Unnamed Recipe" }}</template>
-        <template #subtitle>
-          <div class="flex gap-2">
-            <div>{{ recipe?.recipeCategory || "No Category" }}</div>
-            <div>•</div>
-            <div>{{ formattedTime || "Unknown duration" }}</div>
-          </div>
-          <div class="flex items-center mt-3 -mb-1 text-sm font-semibold">
-            <Avatar
-              :label="nameInitials"
-              class="mr-2"
-              style="background-color: #dee9fc; color: #1a2551"
-              shape="circle"
-            />
-            <div>
-              {{ truncatedName }}
-              <span v-if="truncatedName && recipe?.datePublished"> • </span>
-              {{ recipe?.datePublished }}
+      <div class="sm:flex sm:items-center sm:justify-center sm:h-screen">
+        <div class="sm:flex sm:items-center sm:min-w-96 sm:bg-gradient-to-r sm:from-cyan-500 sm:to-blue-500 sm:h-screen">
+          <img
+            class="w-full max-h-96 object-cover bg-fixed overflow-hidden sm:object-scale-down"
+            alt="food header"
+            :src="recipe?.image[0]"
+          />
+        </div>
+        <Card
+          class="text-lg -mt-16 sm:overflow-x-hidden rounded-3xl relative shadow-none sm:h-screen sm:py-24 sm:overflow-scroll sm:max-w-prose"
+          :pt="{
+            title: 'text-3xl font-bold',
+          }"
+        >
+          <template #title>{{ recipe?.name || "Unnamed Recipe" }}</template>
+          <template #subtitle>
+            <div class="flex gap-2">
+              <div>{{ recipe?.recipeCategory || "No Category" }}</div>
+              <div>•</div>
+              <div>{{ formattedTime || "Unknown duration" }}</div>
             </div>
-          </div>
-        </template>
-        <template #content>
-          <BaseReadMore :text="recipe?.description" class="text-base" />
-          <BaseDivider />
-          <RecipeInfo title="Ingredients">
-            <template #body>
-              <RecipeIngredient :recipe-ingredient="recipe?.recipeIngredient" />
-            </template>
-          </RecipeInfo>
-          <BaseDivider />
-          <RecipeInfo title="Steps">
-            <template #body>
-              <RecipeIntructions
-                :recipe-instructions="recipe?.recipeInstructions"
+            <div class="flex items-center mt-3 -mb-1 text-sm font-semibold">
+              <Avatar
+                :label="nameInitials"
+                class="mr-2"
+                style="background-color: #dee9fc; color: #1a2551"
+                shape="circle"
               />
-            </template>
-          </RecipeInfo>
-        </template>
-      </Card>
+              <div>
+                {{ truncatedName }}
+                <span v-if="truncatedName && recipe?.datePublished"> • </span>
+                {{ recipe?.datePublished }}
+              </div>
+            </div>
+          </template>
+          <template #content>
+            <BaseReadMore :text="recipe?.description" class="text-base" />
+            <BaseDivider />
+            <RecipeInfo title="Ingredients">
+              <template #body>
+                <RecipeIngredient
+                  :recipe-ingredient="recipe?.recipeIngredient"
+                />
+              </template>
+            </RecipeInfo>
+            <BaseDivider />
+            <RecipeInfo title="Steps">
+              <template #body>
+                <RecipeIntructions
+                  :recipe-instructions="recipe?.recipeInstructions"
+                />
+              </template>
+            </RecipeInfo>
+          </template>
+        </Card>
+      </div>
     </div>
     <div v-else class="flex">
       <BaseSpinner />
