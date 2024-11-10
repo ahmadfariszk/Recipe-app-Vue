@@ -75,7 +75,7 @@ const formattedTime = computed(() => {
           <template #title>{{ recipe?.name || "Unnamed Recipe" }}</template>
           <template #subtitle>
             <div class="flex gap-2">
-              <div>{{ recipe?.recipeCategory || "No Category" }}</div>
+              <div>{{ Array.isArray(recipe?.recipeCategory) ? recipe?.recipeCategory.join(', ') : recipe?.recipeCategory || "No Category" }}</div>
               <div>•</div>
               <div>{{ formattedTime || "Unknown duration" }}</div>
             </div>
