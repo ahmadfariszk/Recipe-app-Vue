@@ -6,6 +6,20 @@ defineProps({
     required: true,
   },
 });
+const fallbackImage =
+  "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
+
+function checkImage(event) {
+  //If image link return no image
+  const img = event.target;
+  if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+    img.src = fallbackImage;
+  }
+}
+function onImageError(event) {
+  //If image link broken
+  event.target.src = fallbackImage;
+}
 </script>
 
 <template>
@@ -21,7 +35,14 @@ defineProps({
       <img
         class="min-w-28 max-w-28 h-full object-cover rounded-xl overflow-hidden"
         alt="food header"
-        :src="Array.isArray(recipe.image) ? recipe.image?.[0] : recipe?.image"
+        :src="
+          Array.isArray(recipe.image)
+            ? recipe.image?.[0]
+            : recipe?.image ||
+              'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+        "
+        @load="checkImage"
+        @error="onImageError"
       />
     </template>
     <template #title
@@ -29,8 +50,8 @@ defineProps({
       }}<FavouriteToggleButton @click.stop="" :recipe-id="(recipe, recipe.id)"
     /></template>
     <template #content>
-      <p class="m-0 h-16 text-sm overflow-hidden">
-        {{ recipe.description }}
+      <p class="m-0 h-16 w-full text-sm overflow-hidden">
+        {{ recipe?.description || "Explore this recipe to learn more!" }}
       </p>
     </template>
   </Card>
