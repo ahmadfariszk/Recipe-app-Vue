@@ -3,9 +3,8 @@ import { computed } from "vue";
 import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
 
 const recipeStore = useRecipeArrayStore();
-console.log(recipeStore.getRecipeArray);
-
 const recipeArray = computed(() => recipeStore.getRecipeArray);
+
 </script>
 
 <template>
