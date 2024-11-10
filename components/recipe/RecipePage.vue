@@ -20,14 +20,14 @@
             <div>•</div>
             <div>{{ recipe.cookTime }}</div>
           </div>
-          <div class="flex items-center mt-2">
+          <div class="flex items-center mt-3 -mb-1 text-sm font-semibold ">
             <Avatar
               :label="nameInitials"
               class="mr-2"
               style="background-color: #dee9fc; color: #1a2551"
               shape="circle"
             />
-            <div>{{ truncatedName }}</div>
+            <div>{{ truncatedName }} • {{ recipe.datePublished }}</div>
           </div>
         </template>
         <template #content>
