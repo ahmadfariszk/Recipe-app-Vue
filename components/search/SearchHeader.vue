@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Search } from "lucide-vue-next";
 const selectedCity = ref();
 const cities = ref([
   { name: "New York", code: "NY" },
