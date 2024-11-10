@@ -52,6 +52,15 @@ const formattedTime = computed(() => {
   });
   return formattedDuration;
 });
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 const fallbackImage =
   "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
 
@@ -80,13 +89,13 @@ function onImageError(event) {
             class="w-full max-h-96 object-cover bg-fixed overflow-hidden sm:object-scale-down"
             alt="food header"
             :src="
-          Array.isArray(recipe?.image)
-            ? recipe?.image?.[0]
-            : recipe?.image ||
-              'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
-        "
-        @load="checkImage"
-        @error="onImageError"
+              Array.isArray(recipe?.image)
+                ? recipe?.image?.[0]
+                : recipe?.image ||
+                  'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+            "
+            @load="checkImage"
+            @error="onImageError"
           />
         </div>
         <Card
@@ -119,12 +128,12 @@ function onImageError(event) {
               <div>
                 {{ truncatedName }}
                 <span v-if="truncatedName && recipe?.datePublished"> • </span>
-                {{ recipe?.datePublished }}
+                {{ formatDate(recipe?.datePublished) }}
               </div>
             </div>
           </template>
           <template #content>
-            <BaseReadMore :text="recipe?.description" class="text-base" />
+            <BaseReadMore :text="recipe?.description" class="text-base mt-2" />
             <BaseDivider />
             <RecipeInfo title="Ingredients">
               <template #body>

@@ -8,8 +8,8 @@ const recipeArray = computed(() => recipeStore.getRecipeArray);
 
 <template>
   <!-- Check if recipeArray is defined and has items before rendering -->
-  <div class="w-full flex justify-center">
-    <div class="px-4 sm:max-w-xl">
+  <div class="w-full flex justify-center px-4">
+    <div class="w-[99.9%] sm:max-w-xl">
       <div v-if="recipeArray && recipeArray.length">
         <RecipeCardHorizontal
           v-for="recipe in recipeArray"

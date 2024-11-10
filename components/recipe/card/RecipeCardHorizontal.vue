@@ -28,6 +28,7 @@ function onImageError(event) {
     :pt="{
       header: 'h-full',
       body: 'w-full',
+      content: 'w-[200px] sm:w-auto',
       title: 'text-base flex justify-between ',
     }"
   >
@@ -46,11 +47,13 @@ function onImageError(event) {
       />
     </template>
     <template #title
-      >{{ recipe.name
-      }}<FavouriteToggleButton @click.stop="" :recipe-id="(recipe, recipe.id)"
+      >
+      <!-- {{ recipe.name }} -->
+      <div class="truncate max-w-[150px] sm:max-w-full">{{ recipe.name }}</div>
+      <FavouriteToggleButton @click.stop="" :recipe-id="(recipe, recipe.id)"
     /></template>
     <template #content>
-      <p class="m-0 h-16 w-full text-sm overflow-hidden">
+      <p class="m-0 h-16 w-full text-sm overflow-hidden text-ellipsis">
         {{ recipe?.description || "Explore this recipe to learn more!" }}
       </p>
     </template>
