@@ -9,7 +9,7 @@ const recipeArray = computed(() => recipeStore.getRecipeArray);
 
 <template>
   <!-- Check if recipeArray is defined and has items before rendering -->
-  <div class="p-4">
+  <div class="px-4">
     <div v-if="recipeArray && recipeArray.length">
       <RecipeCardHorizontal
         v-for="recipe in recipeArray"
@@ -18,10 +18,12 @@ const recipeArray = computed(() => recipeStore.getRecipeArray);
         @click="handleClickToRecipe(recipe.id)"
       />
     </div>
-    <div class="text-center" v-else-if="recipeStore.getSelectedCategoryValue">
+    <div  v-else-if="recipeStore.getSelectedCategoryValue" class="text-center">
       <p>There are no recipes found.</p>
     </div>
-    <div v-else>
+    <div v-else class="flex flex-col justify-center items-center mt-56 ">
+      <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+    animationDuration=".5s" aria-label="Custom ProgressSpinner" />
       <p>Loading recipes...</p>
     </div>
   </div>
