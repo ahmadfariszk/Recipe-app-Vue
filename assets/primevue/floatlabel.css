@@ -39,7 +39,7 @@
 .p-floatlabel:has(input:-webkit-autofill) label,
 .p-floatlabel:has(textarea:focus) label ,
 .p-floatlabel:has(.p-inputwrapper-focus) label  {
-    @apply text-primary
+    @apply text-white text-sm font-semibold   /*modified*/
 }
 
 .p-floatlabel-in .p-inputtext,

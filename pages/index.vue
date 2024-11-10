@@ -1,16 +1,16 @@
 <script setup>
-import { useRecipeListStore } from '@/stores/recipeList';  // Adjust path if needed
+import { useRecipeArrayStore } from '@/stores/recipeArrayStore';  // Adjust path if needed
 // Access the store
-const recipeStore = useRecipeListStore();
+const recipeStore = useRecipeArrayStore();
 
 // Access the getter
-const getRecipeList = recipeStore.getRecipes;
+const getRecipeArray = recipeStore.getRecipes;
 </script>
 
 <template>
-  <div v-if="getRecipeList.length">
+  <div v-if="getRecipeArray.length">
     <ul>
-      <li v-for="recipe in getRecipeList" :key="recipe.name">
+      <li v-for="recipe in getRecipeArray" :key="recipe.name">
         {{ recipe.name }}
       </li>
     </ul>

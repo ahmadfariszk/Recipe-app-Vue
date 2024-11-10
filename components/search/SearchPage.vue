@@ -1,24 +1,20 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
+
+const recipeStore = useRecipeArrayStore();
+
+const categoryList = computed(() => recipeStore.getCategoryOptions);
+const selectedCategoryValue = computed(
+  () => recipeStore.getSelectedCategoryValue
+);
+</script>
+
 <template>
-    <!-- Check if recipeList is defined and has items before rendering -->
-    <div class=" p-4">
-      <div v-if="recipeList && recipeList.length">
-        <RecipeCardHorizontal
-          v-for="recipe in recipeList"
-          :key="recipe.name"
-          :recipe="recipe"
-        />
-      </div>
-      <div v-else>
-        <p>Loading recipes...</p>
-      </div>
-    </div>
-  </template>
-  <script setup>
-  import { computed } from 'vue';
-  import { useRecipeListStore } from '@/stores/recipeList';
-  
-  const recipeStore = useRecipeListStore();
-  console.log(recipeStore.getRecipeList)
-  
-  const recipeList = computed(() => recipeStore.getRecipeList);
-  </script>
+  <SearchHeader
+    :badge-filter-options="categoryList"
+    :badge-filter-on-click="recipeStore.handleOnClickCategory"
+    :badge-filter-value="selectedCategoryValue"
+  />
+  <RecipeList />
+</template>
