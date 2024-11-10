@@ -39,14 +39,16 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     recipeCategoryOptions: Set<string>;
     selectedCategoryValue: string;
     filteredRecipeArray: Recipe[];
-    favRecipeArray: number[];
+    favRecipeIds: number[];
+    favRecipeArray: Recipe[];
   } => ({
     recipeArray: [],
     hasFetched: false,
     recipeCategoryOptions: new Set(),
     selectedCategoryValue: "",
     filteredRecipeArray: [],
-    favRecipeArray: JSON.parse(localStorage.getItem("favRecipeArray") || "[]"),
+    favRecipeIds: JSON.parse(localStorage.getItem("favRecipeIds") || "[]"),
+    favRecipeArray: []
   }),
   getters: {
     getRecipeArray(state) {
@@ -65,8 +67,16 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
     },
     favoriteRecipes(state) {
       return state.recipeArray.filter((recipe) =>
-        state.favRecipeArray.includes(recipe.id),
+        state.favRecipeIds.includes(recipe.id),
       );
+    },
+    getFavRecipeIds(state) {
+      console.log(state.favRecipeIds)
+      return state.favRecipeIds
+    },
+    getFavRecipeArray(state) {
+      console.log('ay', state.favRecipeArray)
+      return state.favRecipeArray;
     },
   },
   actions: {
@@ -91,6 +101,7 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
           }));
 
           this.setRecipeArray(recipesWithIds);
+          this.updateFavRecipeArray();
           console.log("category options", this.getCategoryOptions);
         } catch (error) {
           console.error("Error fetching recipes:", error);
@@ -154,27 +165,33 @@ export const useRecipeArrayStore = defineStore("recipeArray", {
       });
     },
     toggleFavorite(recipeId: number) {
-      if (this.favRecipeArray.includes(recipeId)) {
-        this.favRecipeArray = this.favRecipeArray.filter(
+      if (this.favRecipeIds.includes(recipeId)) {
+        this.favRecipeIds = this.favRecipeIds.filter(
           (id) => id !== recipeId,
         );
       } else {
-        this.favRecipeArray.push(recipeId);
+        this.favRecipeIds.push(recipeId);
       }
+      this.updateFavRecipeArray();
       this.saveFavorites();
     },
 
     saveFavorites() {
       localStorage.setItem(
-        "favRecipeArray",
-        JSON.stringify(this.favRecipeArray),
+        "favRecipeIds",
+        JSON.stringify(this.favRecipeIds),
       );
     },
 
     loadFavorites() {
-      this.favRecipeArray = JSON.parse(
-        localStorage.getItem("favRecipeArray") || "[]",
+      console.log('loaded!')
+      this.favRecipeIds = JSON.parse(
+        localStorage.getItem("favRecipeIds") || "[]",
       );
+    },
+    updateFavRecipeArray() {
+      console.log('what are the fav recipe ids?', this.favRecipeIds)
+      this.favRecipeArray = this.recipeArray.filter(recipe => this.favRecipeIds.includes(recipe.id));
     },
   },
 });

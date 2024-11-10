@@ -6,9 +6,9 @@ export default defineNuxtPlugin(nuxtApp => {
       // Using onMounted ensures this code runs only on the client side
       onMounted(() => {
         if (typeof window !== 'undefined' && localStorage) {
-          const storedFavorites = localStorage.getItem('favRecipeArray');
+          const storedFavorites = localStorage.getItem('favRecipeIds');
           if (storedFavorites) {
-            recipeStore.favRecipeArray = JSON.parse(storedFavorites);
+            recipeStore.favRecipeIds = JSON.parse(storedFavorites);
           }
         }
       });
@@ -18,7 +18,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const saveFavorites = () => {
       onMounted(() => {
         if (typeof window !== 'undefined' && localStorage) {
-          localStorage.setItem('favRecipeArray', JSON.stringify(recipeStore.favRecipeArray));
+          localStorage.setItem('favRecipeIds', JSON.stringify(recipeStore.favRecipeIds));
         }
       });
     };

@@ -7,7 +7,7 @@ const recipeStore = useRecipeArrayStore();
 
 // Define a computed property for `v-model`
 const isFavorite = computed({
-  get: () => recipeStore.favRecipeArray.includes(props.recipeId),
+  get: () => recipeStore.favRecipeIds.includes(props.recipeId),
   set: (value) => {
     console.log('props', props.recipeId)
     recipeStore.toggleFavorite(props.recipeId);
