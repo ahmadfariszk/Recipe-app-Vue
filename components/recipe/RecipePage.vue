@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRecipeArrayStore } from "@/stores/recipeArrayStore";
-import { formatDuration, intervalToDuration } from "date-fns";
 
 const recipeStore = useRecipeArrayStore();
 const props = defineProps<{ id: number }>();
@@ -27,7 +26,7 @@ const truncatedName = computed(() => {
 });
 
 const formattedTime = computed(() => {
-  const durationString: string = recipe.value?.cookTime ?? "PT0M"; // ISO 8601 format for 80 minutes
+  const durationString: string = recipe.value?.cookTime ?? "PT0M"; // ISO 8601
   function parseDuration(durationISO: string): {
     hours: number;
     minutes: number;

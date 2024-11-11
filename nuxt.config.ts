@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@pinia/nuxt",
     "@primevue/nuxt-module",
+    "nuxt-lodash"
   ],
   primevue: {
     options: {
@@ -40,5 +41,10 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
-  }
+  },
+  lodash: {
+    prefix: false,
+    prefixSkip: false,
+    upperAfterPrefix: false,
+  },
 });
