@@ -1,6 +1,6 @@
 # Recipe App
 ## Overview
-Please Use Light Mode to view. Havemt fully configure Dark mode yet.
+Please Use Light Mode to view. Havent fully configure Dark mode yet.
 
 A Vue3 app that allows users to browse and save their favourite recipes, with dynamic search bar and tags filtering. Made with mobile-first, responsiveness and scalability in mind.
 
