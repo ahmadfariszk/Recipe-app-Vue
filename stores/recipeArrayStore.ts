@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { startCase, some } from "lodash";
+
 export type Author = {
   "@type": "Person" | "Organisation"; // Union for @type
   name: string; // Common property for both Person and Organisation
