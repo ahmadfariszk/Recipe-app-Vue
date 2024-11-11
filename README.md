@@ -1,4 +1,9 @@
-# Nuxt Minimal Starter
+# Recipe App
+## Overview
+A Vue3 app that allows users to browse and save their favourite recipes, with dynamic search bar and tags filtering. Made with mobile-first, responsiveness and scalibility in mind.
+
+# Server
+This app uses Vite+Nuxt to be set up,
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
