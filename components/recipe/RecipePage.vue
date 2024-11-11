@@ -97,6 +97,13 @@ function onImageError(event) {
             @load="checkImage"
             @error="onImageError"
           />
+          <Button
+            icon="pi pi-chevron-left"
+            aria-label="Back"
+            severity="secondary"
+            class="absolute z-[100] top-2 left-2 sm:hidden bg-slate-200 border-none enabled:hover:bg-slate-300 rounded-full"
+            @click="$router.back()"
+          />
         </div>
         <Card
           class="text-lg -mt-16 sm:overflow-x-hidden rounded-3xl relative shadow-none sm:h-screen sm:py-24 sm:overflow-scroll sm:max-w-prose sm:mt-0 sm:rounded-none"
