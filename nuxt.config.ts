@@ -5,11 +5,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   pages: true,
   ssr: false,
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/Recipe-app-Vue/' : '/', 
+  },
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/eslint",
     "@pinia/nuxt",
     "@primevue/nuxt-module",
+    "nuxt-lodash"
   ],
   primevue: {
     options: {
@@ -37,5 +41,10 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
-  }
+  },
+  lodash: {
+    prefix: false,
+    prefixSkip: false,
+    upperAfterPrefix: false,
+  },
 });
