@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   pages: true,
   ssr: false,
   app: {
-    baseURL: process.env.NODE_ENV === 'production' ? '/<Recipe-app-Vue>/' : '/', 
+    baseURL: process.env.NODE_ENV === 'production' ? '/Recipe-app-Vue/' : '/', 
   },
   modules: [
     "@nuxtjs/tailwindcss",
