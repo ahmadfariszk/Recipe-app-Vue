@@ -1,6 +1,8 @@
 # Recipe App
+This app have been deplyoed [here](https://ahmadfariszk.github.io/Recipe-app-Vue/).
+
 ~~Please Use Light Mode to view. Havent fully configure Dark Mode yet~~ Dark Mode have been disabled.
-This app have been deplyoed [here](https://ahmadfariszk.github.io/Recipe-app-Vue/)
+
 # Overview
 A Vue3 app that allows users to browse and save their favourite recipes, with dynamic search bar and tags filtering. Made with mobile-first, responsiveness and scalability in mind.
 
