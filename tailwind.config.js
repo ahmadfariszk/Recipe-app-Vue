@@ -2,7 +2,7 @@
 export default {
   content: [],
   presets: [],
-  darkMode: 'media', // or 'class'
+  darkMode: ['selector', '[class*="app-dark"]'] , // prevents darkmode, fix this once darkmode is optimised
   theme: {
     accentColor: ({ theme }) => ({
       ...theme('colors'),
