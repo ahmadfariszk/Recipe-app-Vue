@@ -83,9 +83,9 @@
     --p-text-hover-muted-color: var(--p-surface-300);
   }
   /* custom */
-  body {
+  /* body {
     background-color: #000;
-  }
+  } */
 }
 
 @layer tailwind-base, primevue, tailwind-utilities;
